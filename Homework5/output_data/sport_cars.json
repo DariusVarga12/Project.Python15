@@ -1,0 +1,30 @@
+[
+    {
+        "id": 3,
+        "brand": "Bmw",
+        "model": "545i",
+        "hp": 333,
+        "price": 8500
+    },
+    {
+        "id": 4,
+        "brand": "Audi",
+        "model": "A7",
+        "hp": 286,
+        "price": 76770
+    },
+    {
+        "id": 5,
+        "brand": "Lamborghini",
+        "model": "Urus",
+        "hp": 650,
+        "price": 251000
+    },
+    {
+        "id": 6,
+        "brand": "AstonMartin",
+        "model": "Vanquish",
+        "hp": 573,
+        "price": 114240
+    }
+]
