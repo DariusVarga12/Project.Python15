@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Programări</title>
+</head>
+<body>
+    <h1>Programări</h1>
+
+    <h2>Adaugă o programare:</h2>
+    <form method="POST" action="/">
+        <label for="nume_client">Nume client:</label>
+        <input type="text" id="nume_client" name="nume_client" required><br>
+
+        <label for="data">Data:</label>
+        <input type="date" id="data" name="data" required><br>
+
+        <label for="ora">Ora:</label>
+        <input type="time" id="ora" name="ora" required><br>
+
+        <input type="submit" value="Programare">
+    </form>
+
+    <h2>Programări existente:</h2>
+    <ul>
+        {% for programare in programari %}
+            <li>{{ programare.nume_client }} - {{ programare.data }} - {{ programare.ora }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
