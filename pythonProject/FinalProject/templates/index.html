@@ -1,35 +1,77 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Programări</title>
+    <title>Aplicație de programări</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <style>
+        .container {
+            margin-top: 50px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Programări</h1>
-
-    <h2>Adaugă o programare:</h2>
-    <form method="POST" action="/">
-        <label for="nume_client">Nume client:</label>
-        <input type="text" id="nume_client" name="nume_client" required><br>
-
-        <label for="data">Data:</label>
-        <input type="date" id="data" name="data" required><br>
-
-        <label for="ora">Ora:</label>
-        <input type="time" id="ora" name="ora" required><br>
-
-        <input type="submit" value="Programare">
-    </form>
-
-    <h2>Programări existente:</h2>
-    <ul>
-        {% for programare in programari %}
-            <li>
-                {{ programare.nume_client }} - {{ programare.data }} - {{ programare.ora }}
-                <form action="{{ url_for('sterge_programare', programare_id=programare.id) }}" method="post" style="display: inline;">
-                    <input type="submit" value="Șterge">
-                </form>
-            </li>
-        {% endfor %}
-    </ul>
+    <div class="container">
+        <h1>Aplicație de programări</h1>
+        <h3>Programări existente:</h3>
+        <ul>
+            {% for programare in programari %}
+                <li>{{ programare.nume_client }} - {{ programare.serviciu }} - {{ programare.data }} - {{ programare.ora }}</li>
+            {% endfor %}
+        </ul>
+        <h3>Efectuare programare:</h3>
+        <form method="POST" action="/">
+            <div class="form-group">
+                <label for="serviciu">Serviciu:</label>
+                <select class="form-control" id="serviciu" name="serviciu">
+                    <option value="Tuns">Tuns</option>
+                    <option value="Masaj">Masaj</option>
+                    <!-- Adăugați aici opțiunile pentru alte servicii -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="nume_client">Nume client:</label>
+                <input type="text" class="form-control" id="nume_client" name="nume_client" required>
+            </div>
+            <div class="form-group">
+                <label for="data">Data:</label>
+                <input type="text" class="form-control" id="data" name="data" required>
+            </div>
+            <div class="form-group">
+                <label for="ora">Ora:</label>
+                <select class="form-control" id="ora" name="ora" required>
+                    <option value="" disabled selected>Selectează ora</option>
+                    {% for hour in range(9, 21) %}
+                        {% for minute in range(0, 60, 40) %}
+                            {% set time = "{:02d}:{:02d}".format(hour, minute) %}
+                            <option value="{{ time }}">{{ time }}</option>
+                        {% endfor %}
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Programare</button>
+        </form>
+    </div>
 </body>
 </html>
+
