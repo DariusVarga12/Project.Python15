@@ -35,6 +35,15 @@ def index():
     else:
         programari = Programare.query.all()
         return render_template('index.html', programari=programari)
+@app.route('/sterge_programare/<int:programare_id>', methods=['POST'])
+def sterge_programare(programare_id):
+    programare = Programare.query.get(programare_id)
+    if programare:
+        db.session.delete(programare)
+        db.session.commit()
+        return 'Programarea a fost ștearsă cu succes!'
+    else:
+        return 'Programarea nu există!'
 
 if __name__ == '__main__':
     app.run(debug=True)

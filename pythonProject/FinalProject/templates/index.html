@@ -23,7 +23,12 @@
     <h2>Programări existente:</h2>
     <ul>
         {% for programare in programari %}
-            <li>{{ programare.nume_client }} - {{ programare.data }} - {{ programare.ora }}</li>
+            <li>
+                {{ programare.nume_client }} - {{ programare.data }} - {{ programare.ora }}
+                <form action="{{ url_for('sterge_programare', programare_id=programare.id) }}" method="post" style="display: inline;">
+                    <input type="submit" value="Șterge">
+                </form>
+            </li>
         {% endfor %}
     </ul>
 </body>
