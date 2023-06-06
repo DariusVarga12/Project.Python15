@@ -29,6 +29,14 @@
             margin-bottom: 20px;
         }
     </style>
+    <script>
+        $(function() {
+            $("#data").datepicker({
+                dateFormat: 'yy-mm-dd',
+                minDate: 0
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="container">
@@ -36,7 +44,12 @@
         <h3>Programări existente:</h3>
         <ul>
             {% for programare in programari %}
-                <li>{{ programare.nume_client }} - {{ programare.serviciu }} - {{ programare.data }} - {{ programare.ora }}</li>
+                <li>
+                    {{ programare.nume_client }} - {{ programare.serviciu }} - {{ programare.data }} - {{ programare.ora }}
+                    <form action="{{ url_for('sterge_programare', programare_id=programare.id) }}" method="post">
+                        <input type="submit" value="Șterge">
+                    </form>
+                </li>
             {% endfor %}
         </ul>
         <h3>Efectuare programare:</h3>
@@ -74,4 +87,3 @@
     </div>
 </body>
 </html>
-

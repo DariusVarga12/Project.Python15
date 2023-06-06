@@ -25,16 +25,20 @@ def index():
         data = request.form['data']
         ora = request.form['ora']
 
-        programare = Programare(nume_client=nume_client, data=data, ora=ora)
-        db.session.add(programare)
-        db.session.commit()
+        if is_slot_available(data, ora):
+            programare = Programare(nume_client=nume_client, data=data, ora=ora)
+            db.session.add(programare)
+            db.session.commit()
 
-        # Aici poți adăuga logica pentru trimiterea notificărilor către tine sau client
+            # Aici poți adăuga logica pentru trimiterea notificărilor către tine sau client
 
-        return 'Programarea a fost efectuată cu succes!'
+            return 'Programarea a fost efectuată cu succes!'
+        else:
+            return 'Această oră și dată nu sunt disponibile! Te rugăm să selectezi altă oră sau dată.'
     else:
         programari = Programare.query.all()
         return render_template('index.html', programari=programari)
+
 @app.route('/sterge_programare/<int:programare_id>', methods=['POST'])
 def sterge_programare(programare_id):
     programare = Programare.query.get(programare_id)
@@ -44,6 +48,15 @@ def sterge_programare(programare_id):
         return 'Programarea a fost ștearsă cu succes!'
     else:
         return 'Programarea nu există!'
+
+def is_slot_available(data, ora):
+    existing_programari = Programare.query.filter_by(data=data).all()
+
+    for programare in existing_programari:
+        if programare.ora == ora:
+            return False
+
+    return True
 
 if __name__ == '__main__':
     app.run(debug=True)
