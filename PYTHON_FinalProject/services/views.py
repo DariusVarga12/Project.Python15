@@ -28,11 +28,7 @@ def get_all_services(request):
 def get_service(request):
     return render(request, "appointment_details.html")
 
-def services(request):
-    return render(request, 'services/services.html')
 
-def appointment_details(request):
-    return render(request, 'services/appointment_details.html')
 
 
 
