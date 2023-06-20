@@ -1,0 +1,20 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Rezervări pentru {{ service.name }}</h1>
+  <form method="POST" action="{% url 'confirm_booking' service_id=service.id %}">
+    {% csrf_token %}
+    <div>
+      <label for="appointment-date">Selectează data:</label>
+      <input type="date" id="appointment-date" name="appointment_date" required>
+    </div>
+    <div>
+      <label for="appointment-time">Selectează ora:</label>
+      <input type="time" id="appointment-time" name="appointment_time" required min="10:00" max="20:00">
+    </div>
+    <button type="submit" class="btn btn-primary">Confirmă rezervarea</button>
+  </form>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Lista serviciilor</h1>
+  <ul>
+    {% for service in services %}
+      <li>
+        <h2>{{ service.name }}</h2>
+        <p>Preț: {{ service.price }}</p>
+        <a href="{% url 'booking' service_id=service.id %}" class="btn btn-primary">Selectează</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

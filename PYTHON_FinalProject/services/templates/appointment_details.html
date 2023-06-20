@@ -1,14 +1,11 @@
-<html>
-<head>
-    <title>Appointment Details</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}Appointment Details{% endblock %}
+
+{% block content %}
     <h1>Appointment Details</h1>
-    <p>ID:</p>
-    <p>Name:</p>
-    <p>Date:</p>
-    <p>Time:</p>
-    <p>Service:</p>
-    <p>Price:</p>
-</body>
-</html>
+    <h2>{{ service.name }}</h2>
+    <p>Price: ${{ service.price }}</p>
+    <!-- Display additional appointment details -->
+    <a href="{% url 'services_list' %}">Go Back to Services List</a>
+{% endblock %}
