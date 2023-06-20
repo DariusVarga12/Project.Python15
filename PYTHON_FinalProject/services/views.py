@@ -1,6 +1,8 @@
 from django.shortcuts import render, Http404
-from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
 from django.urls import reverse
+from .models import Service
+
 
 services = [
     {
@@ -21,49 +23,42 @@ services = [
 ]
 
 def get_all_services(request):
+    services = Service.objects.all()
     return render(request, "services_list.html", {
         "services": services
     })
 
 def get_service(request, service_id):
-    filtered_services = [
-        service for service in services if service["id"] == service_id
-    ]
-
-    if len(filtered_services) == 0:
+    try:
+        service = Service.objects.get(pk=service_id)
+    except Service.DoesNotExist:
         raise Http404(f"Service with ID = {service_id} does not exist.")
-
     return render(request, "booking.html", {
-        "service": filtered_services[0]
+        "service": service
     })
+def create_appointment(request, service_id):
+    if request.method == 'POST':
+        service = Service.objects.get(pk=service_id)
+        appointment_date = request.POST['appointment_date']
+        appointment_time = request.POST['appointment_time']
+        recurrence = request.POST['recurrence']
+        email = request.POST['email']
 
-def confirm_booking(request, service_id):
-    filtered_services = [
-        service for service in services if service["id"] == service_id
-    ]
+        appointment = Appointment(service=service, appointment_date=appointment_date, appointment_time=appointment_time, recurrence=recurrence, email=email)
+        appointment.save()
+        return redirect('appointment_details', appointment_id=appointment.id)
+    else:
+        try:
+            service = Service.objects.get(pk=service_id)
+        except Service.DoesNotExist:
+            raise Http404(f"Service with ID = {service_id} does not exist.")
+        return render(request, 'booking.html', {'service': service})
 
-    if len(filtered_services) == 0:
-        raise Http404(f"Service with ID = {service_id} does not exist.")
+def appointment_details(request, appointment_id):
+    try:
+        appointment = Appointment.objects.get(pk=appointment_id)
+    except Appointment.DoesNotExist:
+        raise Http404(f"Appointment with ID = {appointment_id} does not exist.")
+    return render(request, 'appointment_details.html', {'appointment': appointment})
 
-    if request.method == "POST":
-        # Procesează datele trimise prin POST și salvează programarea în baza de date
-        # Poți utiliza Django Forms pentru a valida și procesa datele
 
-        # Redirecționează către pagina cu detaliile programării
-        return HttpResponseRedirect(reverse("appointment_details", args=[service_id]))
-
-    return render(request, "booking.html", {
-        "service": filtered_services[0]
-    })
-
-def appointment_details(request, service_id):
-    filtered_services = [
-        service for service in services if service["id"] == service_id
-    ]
-
-    if len(filtered_services) == 0:
-        raise Http404(f"Service with ID = {service_id} does not exist.")
-
-    return render(request, "appointment_details.html", {
-        "service": filtered_services[0]
-    })

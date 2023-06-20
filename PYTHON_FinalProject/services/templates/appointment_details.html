@@ -1,5 +1,9 @@
-<h2>Detalii programare</h2>
-<p><strong>Tip tunsoare:</strong> {{ service.name }}</p>
-<p><strong>Data programării:</strong> {{ appointment_date }}</p>
-<p><strong>Ora programării:</strong> {{ appointment_time }}</p>
-<p>Programarea s-a înregistrat cu succes!</p>
+<h1>Detalii programare:</h1>
+
+<p>Service: {{ appointment.service.name }}</p>
+<p>Price: {{ appointment.service.price }}</p>
+<p>Data programării: {{ appointment.appointment_date }}</p>
+<p>Ora programării: {{ appointment.appointment_time }}</p>
+<p>Recurență: {{ appointment.recurrence }}</p>
+<p>Email: {{ appointment.email }}</p>
+
