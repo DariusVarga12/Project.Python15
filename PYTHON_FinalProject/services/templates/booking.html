@@ -1,10 +1,14 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
 {% extends 'base.html' %}
 
 {% block content %}
   <h1>Rezervări pentru {{ service.name }}</h1>
+
+  {% if confirmation_message %}
+    <div class="alert alert-success">
+      {{ confirmation_message }}
+    </div>
+  {% endif %}
+
   <form method="POST" action="{% url 'confirm_booking' service_id=service.id %}">
     {% csrf_token %}
     <div>
@@ -13,23 +17,21 @@
     </div>
     <div>
       <label for="appointment-time">Selectează ora:</label>
-      <select id="appointment-time" name="appointment_time" required>
-        <option value="09:00">09:00</option>
-        <option value="10:00">10:00</option>
-        <option value="11:00">11:00</option>
-        <option value="12:00">12:00</option>
-        <option value="13:00">13:00</option>
-        <option value="14:00">14:00</option>
-        <option value="15:00">15:00</option>
-        <option value="16:00">16:00</option>
-        <option value="17:00">17:00</option>
-        <option value="18:00">18:00</option>
-        <option value="19:00">19:00</option>
-        <option value="20:00">20:00</option>
-        <option value="21:00">21:00</option>
-        <option value="22:00">22:00</option>
-  </select>
-</div>
-    <button type="submit" class="btn btn-primary">Confirmă rezervarea</button>
+      <input type="time" id="appointment-time" name="appointment_time" required min="09:00" max="22:00">
+    </div>
+    <div>
+      <label for="email">Adresa de e-mail:</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+
+    <div class="form-group">
+      <label for="recurrence">Recurență:</label>
+      <select id="recurrence" name="recurrence" class="form-control">
+        <option value="ONCE">O dată</option>
+        <option value="WEEKLY">Săptămânal</option>
+        <option value="MONTHLY">Lunar</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Rezervă</button>
   </form>
-{% endblock %}
+{% endblock %} 
