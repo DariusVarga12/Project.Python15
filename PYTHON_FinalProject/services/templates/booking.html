@@ -9,7 +9,12 @@
   <label for="appointment_date">Data programării:</label>
   <input type="date" id="appointment_date" name="appointment_date" required><br>
   <label for="appointment_time">Ora programării:</label>
-  <input type="time" id="appointment_time" name="appointment_time" required><br>
+  <select id="appointment_time" name="appointment_time" required>
+    <option value="">-- Selectați ora --</option>
+    {% for hour in hours %}
+      <option value="{{ hour }}">{{ hour }}</option>
+    {% endfor %}
+  </select><br>
   <label for="recurrence">Recurență:</label>
   <select id="recurrence" name="recurrence" required>
     <option value="one-time">One-time</option>
