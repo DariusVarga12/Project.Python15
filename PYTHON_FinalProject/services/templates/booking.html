@@ -4,7 +4,7 @@
 <p>Price: {{ service.price }}</p>
 
 <h2>Programare:</h2>
-<form method="post">
+<form method="POST">
   {% csrf_token %}
   <label for="appointment_date">Data programării:</label>
   <input type="date" id="appointment_date" name="appointment_date" required><br>

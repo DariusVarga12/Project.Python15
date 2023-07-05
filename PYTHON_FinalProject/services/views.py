@@ -1,26 +1,6 @@
 from django.shortcuts import render, Http404
 from django.shortcuts import redirect
-from django.urls import reverse
-from .models import Service
-
-
-services = [
-    {
-        "id": 1,
-        "name": "(SkinFade/TaperFade)MEN",
-        "price": 70.00
-    },
-    {
-        "id": 2,
-        "name": "(CUT&BEARD)MEN",
-        "price": 80.00
-    },
-    {
-        "id": 3,
-        "name": "LADIES(full pack) short / medium hair / long hair",
-        "price": 100.00
-    },
-]
+from .models import Service, Appointment
 
 def get_all_services(request):
     services = Service.objects.all()
@@ -60,5 +40,4 @@ def appointment_details(request, appointment_id):
     except Appointment.DoesNotExist:
         raise Http404(f"Appointment with ID = {appointment_id} does not exist.")
     return render(request, 'appointment_details.html', {'appointment': appointment})
-
 
