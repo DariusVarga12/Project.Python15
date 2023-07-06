@@ -11,13 +11,13 @@ class Service(models.Model):
 
 
 class Appointment(models.Model):
-    service = models.ForeignKey(Service, on_delete=models.CASCADE)
+    last_name = models.CharField(max_length=100)
+    recurrence = models.CharField(max_length=100)
+    first_name = models.CharField(max_length=100)
+    phone_number = models.CharField(max_length=100)
     appointment_date = models.DateField()
     appointment_time = models.TimeField()
-    recurrence = models.CharField(max_length=20)
-    first_name = models.CharField(max_length=100, default='')
-    last_name = models.CharField(max_length=100, default='')
-    phone_number = models.CharField(max_length=20)
+    service = models.CharField(max_length=100, default=1)
 
     def __str__(self):
-        return f"Appointment for {self.service.name} on {self.appointment_date} at {self.appointment_time}"
+        return f"{self.last_name} {self.first_name}"

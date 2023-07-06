@@ -4,7 +4,7 @@
 <p>Price: {{ service.price }}</p>
 
 <h2>Programare:</h2>
-<form method="POST">
+<form method="POST" action="{% url 'create_appointment' service_id=service.id %}">
   {% csrf_token %}
   <label for="appointment_date">Data programării:</label>
   <input type="date" id="appointment_date" name="appointment_date" required><br>
@@ -25,7 +25,7 @@
   <input type="text" id="first_name" name="first_name" required><br>
   <label for="last_name">Nume:</label>
   <input type="text" id="last_name" name="last_name" required><br>
-  <label for="phone">Număr de telefon:</label>
-  <input type="tel" id="phone" name="phone" required><br>
+  <label for="phone_number">Număr de telefon:</label>
+  <input type="tel" id="phone_number" name="phone_number" required><br>
   <input type="submit" value="Programează">
 </form>

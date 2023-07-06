@@ -1,13 +1,29 @@
-<h1> Programarea ta s-a efectuat cu succes.</h1>
+<h1>Appointment Details</h1>
+<p>Service: {{ service }}</p>
 
-<h2>Detalii programare:</h2>
+<form method="post" action="">
+  {% csrf_token %}
+  {{ form.as_table }}
+  <input type="submit" value="Confirm">
+</form>
 
-<p>Service: {{ appointment.service.name }}</p>
-<p>Price: {{ appointment.service.price }}</p>
-<p>Data programării: {{ appointment.appointment_date }}</p>
-<p>Ora programării: {{ appointment.appointment_time }}</p>
-<p>Recurență: {{ appointment.recurrence }}</p>
-<p>Email: {{ appointment.email }}</p>
+<ol>
+  {% for appointment in all_appointments %}
+    <li>
+      <p>{{ appointment.service}}</p>
+      <p>{{ appointment.first_name }}</p>
+      <p> {{ appointment.last_name }}</p>
+      {{ appointment.appointment_date }}
+      {{ appointment.appointment_time }}
+      {{ appointment.recurrence }}
+      {{ appointment.phone_number }}
+      <div>
+        <form action="{% url 'delete_appointment' appointment_id=appointment.id %}">
+          {% csrf_token %}
+          <button type="submit">DELETE</button>
+        </form>
+      </div>
+    </li>
 
-
-
+  {% endfor %}
+</ol>
