@@ -13,6 +13,7 @@ def get_all_services(request):
         "services": services
     })
 
+
 def create_appointment(request, service_id):
     try:
         service = Service.objects.get(pk=service_id)
@@ -62,11 +63,11 @@ def get_service(request, service_id):
         hours.append(hour_str)
 
     return render(request, "booking.html",
-        {
-            "service": service,
-            "hours": hours,
-            "form": AppointmentForm()
-        })
+                  {
+                      "service": service,
+                      "hours": hours,
+                      "form": AppointmentForm()
+                  })
 
 
 def appointment_details(request, appointment_id):
@@ -76,15 +77,16 @@ def appointment_details(request, appointment_id):
 
     all_appointemnts = return_all_appointments(appointment.first_name)
 
-    return render(request, 'appointment_details.html', {'form': form, 'service': service, 'all_appointments': all_appointemnts})
+    return render(request, 'appointment_details.html',
+                  {'form': form, 'service': service, 'all_appointments': all_appointemnts})
 
 
 def return_all_appointments(user_name):
     appointments = Appointment.objects.all().filter(first_name=str(user_name).capitalize())
 
     if appointments.exists():
-        print("Există program.")
+        print("Exista program.")
     else:
-        print("Nu există program.")
+        print("Nu exista program.")
 
     return appointments

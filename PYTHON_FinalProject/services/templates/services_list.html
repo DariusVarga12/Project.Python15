@@ -1,9 +1,17 @@
-<h1>Lista de servicii:</h1>
+{% extends 'base.html' %}
 
-<ul>
-  {% for service in services %}
-    <li>
-      <a href="{% url 'get_service' service.id %}">{{ service.name }}</a> - Price: {{ service.price }}
-    </li>
-  {% endfor %}
-</ul>
+{% block title %}Merov - Lista de servicii{% endblock %}
+
+{% block content %}
+    <div style="text-align: center; padding: 40px; background-color: #fff; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+        <h1 style="font-size: 36px; color: #333; margin-bottom: 20px;">Lista de servicii:</h1>
+        <ul style="list-style-type: none; padding: 0;">
+            {% for service in services %}
+                <li style="background-color: #fff; border: 1px solid #ddd; padding: 20px; margin: 10px 0; border-radius: 5px;">
+                    <a href="{% url 'get_service' service.id %}" style="text-decoration: none; color: #007BFF; font-weight: bold; font-size: 20px;">{{ service.name }}</a>
+                    <span style="display: block; margin-top: 10px; color: #777; font-size: 16px;">Price: {{ service.price }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

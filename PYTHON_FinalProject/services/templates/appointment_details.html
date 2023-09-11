@@ -1,29 +1,98 @@
-<h1>Appointment Details</h1>
-<p>Service: {{ service }}</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Appointment Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            margin: 0;
+            padding: 0;
+        }
 
-<form method="post" action="">
-  {% csrf_token %}
-  {{ form.as_table }}
-  <input type="submit" value="Confirm">
-</form>
+        h1 {
+            text-align: center;
+        }
 
-<ol>
-  {% for appointment in all_appointments %}
-    <li>
-      <p>{{ appointment.service}}</p>
-      <p>{{ appointment.first_name }}</p>
-      <p> {{ appointment.last_name }}</p>
-      {{ appointment.appointment_date }}
-      {{ appointment.appointment_time }}
-      {{ appointment.recurrence }}
-      {{ appointment.phone_number }}
-      <div>
-        <form action="{% url 'delete_appointment' appointment_id=appointment.id %}">
-          {% csrf_token %}
-          <button type="submit">DELETE</button>
-        </form>
-      </div>
-    </li>
+        .details-list {
+            list-style: none;
+            padding: 0;
+            text-align: center;
+        }
 
-  {% endfor %}
-</ol>
+        .details-list li {
+            margin: 10px 0;
+        }
+
+        p {
+            margin: 5px 0;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        ol {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #ff0000;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Appointment Details</h1>
+
+    <ol class="details-list">
+        <li>Service: {{ service }}</li>
+    </ol>
+    <form method="post" action="">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <br>
+    <input type="submit" value="Confirm">
+    </form>
+
+    <ol>
+        {% for appointment in all_appointments %}
+            <li>
+                <p><strong>Service:</strong> {{ appointment.service }}</p>
+                <p><strong>Nume:</strong> {{ appointment.first_name }}</p>
+                <p><strong>Prenume:</strong> {{ appointment.last_name }}</p>
+                <p><strong>Data programării:</strong> {{ appointment.appointment_date }}</p>
+                <p><strong>Ora programării:</strong> {{ appointment.appointment_time }}</p>
+                <p><strong>Recurență:</strong> {{ appointment.recurrence }}</p>
+                <p><strong>Număr de telefon:</strong> {{ appointment.phone_number }}</p>
+                <div>
+                    <form action="{% url 'delete_appointment' appointment_id=appointment.id %}">
+                        {% csrf_token %}
+                        <button type="submit">DELETE</button>
+                    </form>
+                </div>
+            </li>
+        {% endfor %}
+    </ol>
+</body>
+</html>

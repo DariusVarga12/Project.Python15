@@ -1,8 +1,53 @@
 {% extends 'base.html' %}
 
-{% block title %}Merov aplicatia ta de programari{% endblock %}
+{% block title %}Merov - Aplicația ta de programări{% endblock %}
 
 {% block content %}
-    <h1>Welcome to the Homepage</h1>
-    <a href="{% url 'services_list' %}">Go to Services</a>
+    <style>
+        .homepage-container {
+            text-align: center;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 70vh;
+        }
+
+        .homepage-title {
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .homepage-description {
+            font-size: 16px;
+            color: #777;
+            margin-bottom: 20px;
+        }
+
+        .homepage-link {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: #007BFF;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 35px;
+        }
+
+        .homepage-link:hover {
+            background-color: #0056b3;
+        }
+    </style>
+
+    <div class="homepage-container">
+        <h1 class="homepage-title">Merov - Aplicația ta de programări</h1>
+        <p class="homepage-description">Aici puteți programa servicii de înaltă calitate.</p>
+        <a class="homepage-link" href="{% url 'services_list' %}">Programeaza-te acum!</a>
+    </div>
 {% endblock %}

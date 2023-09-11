@@ -1,31 +1,41 @@
-<h1>Detalii serviciu:</h1>
+<h1 style="text-align: center; font-size: 36px; margin-bottom: 20px;">Detalii serviciu:</h1>
 
-<p>Name: {{ service.name }}</p>
-<p>Price: {{ service.price }}</p>
+<div class="service-details" style="text-align: center; font-size: 20px;">
+    <p><strong>Name:</strong> {{ service.name }}</p>
+    <p><strong>Price:</strong> {{ service.price }}</p>
+</div>
 
-<h2>Programare:</h2>
+<h2 style="text-align: center; font-size: 28px; margin-top: 20px;">Programare:</h2>
 <form method="POST" action="{% url 'create_appointment' service_id=service.id %}">
-  {% csrf_token %}
-  <label for="appointment_date">Data programării:</label>
-  <input type="date" id="appointment_date" name="appointment_date" required><br>
-  <label for="appointment_time">Ora programării:</label>
-  <select id="appointment_time" name="appointment_time" required>
-    <option value="">-- Selectați ora --</option>
-    {% for hour in hours %}
-      <option value="{{ hour }}">{{ hour }}</option>
-    {% endfor %}
-  </select><br>
-  <label for="recurrence">Recurență:</label>
-  <select id="recurrence" name="recurrence" required>
-    <option value="one-time">One-time</option>
-    <option value="weekly">Weekly</option>
-    <option value="monthly">Monthly</option>
-  </select><br>
-  <label for="first_name">Prenume:</label>
-  <input type="text" id="first_name" name="first_name" required><br>
-  <label for="last_name">Nume:</label>
-  <input type="text" id="last_name" name="last_name" required><br>
-  <label for="phone_number">Număr de telefon:</label>
-  <input type="tel" id="phone_number" name="phone_number" required><br>
-  <input type="submit" value="Programează">
+    {% csrf_token %}
+    <div class="appointment-form" style="background-color: #fff; border: 2px solid #007BFF; padding: 30px; border-radius: 10px; width: 400px; margin: 20px auto;">
+        <label for="appointment_date" style="font-size: 18px;">Data programării:</label>
+        <input type="date" id="appointment_date" name="appointment_date" required style="font-size: 16px; width: 100%; padding: 10px; margin-bottom: 15px;"><br>
+
+        <label for="appointment_time" style="font-size: 18px;">Ora programării:</label>
+        <select id="appointment_time" name="appointment_time" required style="font-size: 16px; width: 100%; padding: 10px; margin-bottom: 15px;">
+            <option value="">-- Selectați ora --</option>
+            {% for hour in hours %}
+                <option value="{{ hour }}">{{ hour }}</option>
+            {% endfor %}
+        </select><br>
+
+        <label for="recurrence" style="font-size: 18px;">Recurență:</label>
+        <select id="recurrence" name="recurrence" required style="font-size: 16px; width: 100%; padding: 10px; margin-bottom: 15px;">
+            <option value="one-time">One-time</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+        </select><br>
+
+        <label for="first_name" style="font-size: 18px;">Prenume:</label>
+        <input type="text" id="first_name" name="first_name" required style="font-size: 16px; width: 100%; padding: 10px; margin-bottom: 15px;"><br>
+
+        <label for="last_name" style="font-size: 18px;">Nume:</label>
+        <input type="text" id="last_name" name="last_name" required style="font-size: 16px; width: 100%; padding: 10px; margin-bottom: 15px;"><br>
+
+        <label for="phone_number" style="font-size: 18px;">Număr de telefon:</label>
+        <input type="tel" id="phone_number" name="phone_number" required style="font-size: 16px; width: 100%; padding: 10px; margin-bottom: 20px;"><br>
+
+        <input type="submit" value="Programează" style="background-color: #007BFF; color: #fff; border: none; padding: 15px 30px; border-radius: 5px; cursor: pointer; font-size: 18px;">
+    </div>
 </form>
